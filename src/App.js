@@ -4,8 +4,8 @@ import "./App.css";
 function UserCard (props) {
   let info = (
     <div>   
-    <span>{props.user.name.first}</span>
-    (' ')
+    <span>{props.user.name.first} </span>
+    
     <span>{props.user.name.last}</span>
     </div>
   )
@@ -14,9 +14,9 @@ function UserCard (props) {
       <div styel={{marginBottom: '40px'}}>
         <img src={props.user.picture.large}></img>
     <div>   
-    {props.hide === false ? info: null}
+    {props.hide === true ? info: null}
     </div>
-    <button onClick={props.onClick}>Hide Details</button>
+    <button onClick={props.onClick}>{props.hide === true ? "Hide details" : "Show details"}</button>
     </div>
   );
 }
@@ -35,6 +35,10 @@ class App extends Component {
     .then((res) =>{
       return res.json();
     })
+  // .then((json) =>{
+  //     json.results.forEach(person =>{
+  //     person.isHidden = true
+  //   })})
     .then((json) =>{
       this.setState({
         results: json.results
@@ -44,8 +48,9 @@ class App extends Component {
   }
 
   onClick = () => {
+    const opposite = this.state.isHidden;
     this.setState({
-      isHidden: false
+      isHidden: !opposite
     })
   }
   render() {
